@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Pals Adoption Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Pet Pals Adoption Center</h1>
+        <p>Find your forever friend today! <span id="secret-message" class="hidden">🎉 You found the secret message! 🎉</span></p>
+    </header>
+
+    <main>
+        <!-- Interactive Pet Gallery Section -->
+        <section id="pet-gallery">
+            <h2>Meet Our Friends</h2>
+            <div class="gallery-container">
+                <button id="prev-btn" class="gallery-btn">❮</button>
+                <div class="gallery-view">
+                    <img src="/api/placeholder/400/300" alt="Cute dog" class="pet-image active" data-pet="Buddy">
+                    <img src="/api/placeholder/400/300" alt="Playful cat" class="pet-image" data-pet="Whiskers">
+                    <img src="/api/placeholder/400/300" alt="Happy rabbit" class="pet-image" data-pet="Hoppy">
+                    <img src="/api/placeholder/400/300" alt="Colorful parrot" class="pet-image" data-pet="Rio">
+                </div>
+                <button id="next-btn" class="gallery-btn">❯</button>
+            </div>
+            <p id="pet-name">Meet Buddy</p>
+        </section>
+
+        <!-- Interactive Tabs Section -->
+        <section id="pet-info">
+            <h2>Pet Information Center</h2>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="care">Care Tips</button>
+                <button class="tab-btn" data-tab="adoption">Adoption Process</button>
+                <button class="tab-btn" data-tab="stories">Success Stories</button>
+            </div>
+            <div class="tab-content">
+                <div id="care" class="tab-panel active">
+                    <h3>Pet Care Tips</h3>
+                    <p>Regular veterinary check-ups, proper nutrition, exercise, and lots of love are essential for your pet's well-being. Hover over items below for more details!</p>
+                    <ul class="info-list">
+                        <li class="info-item" data-info="Regular vet visits ensure your pet stays healthy and catches any issues early">Regular Vet Check-ups</li>
+                        <li class="info-item" data-info="High-quality food appropriate for your pet's age, size, and health needs is crucial">Proper Nutrition</li>
+                        <li class="info-item" data-info="Daily exercise helps maintain physical health and prevents behavioral problems">Exercise Routine</li>
+                        <li class="info-item" data-info="Mental stimulation through toys and interaction prevents boredom">Mental Enrichment</li>
+                    </ul>
+                </div>
+                <div id="adoption" class="tab-panel">
+                    <h3>Adoption Process</h3>
+                    <p>Our adoption process is designed to match pets with their perfect forever homes:</p>
+                    <ol>
+                        <li>Browse available pets online or visit our center</li>
+                        <li>Complete an adoption application form</li>
+                        <li>Meet with an adoption counselor</li>
+                        <li>Meet your potential new family member</li>
+                        <li>Complete adoption paperwork and pay fees</li>
+                        <li>Welcome your new pet home!</li>
+                    </ol>
+                </div>
+                <div id="stories" class="tab-panel">
+                    <h3>Success Stories</h3>
+                    <p>Here are some heartwarming stories from our adopters:</p>
+                    <div class="story">
+                        <h4>Buddy & The Johnsons</h4>
+                        <p>"Buddy has completely transformed our lives with his endless love and energy. We can't imagine life without him now!"</p>
+                    </div>
+                    <div class="story">
+                        <h4>Whiskers & Maria</h4>
+                        <p>"As a first-time cat owner, I was nervous, but Whiskers has been the perfect companion. She's brought so much joy to my apartment!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Validation Section -->
+        <section id="adoption-form">
+            <h2>Express Interest in Adoption</h2>
+            <p>Fill out this form to start your adoption journey!</p>
+            
+            <form id="interest-form">
+                <div class="form-group">
+                    <label for="full-name">Full Name*</label>
+                    <input type="text" id="full-name" name="fullName" required>
+                    <span class="error-message" id="name-error"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address*</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error-message" id="email-error"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                    <span class="error-message" id="phone-error"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="pet-interest">Pet I'm Interested In*</label>
+                    <select id="pet-interest" name="petInterest" required>
+                        <option value="">-- Select a Pet --</option>
+                        <option value="Buddy">Buddy (Dog)</option>
+                        <option value="Whiskers">Whiskers (Cat)</option>
+                        <option value="Hoppy">Hoppy (Rabbit)</option>
+                        <option value="Rio">Rio (Parrot)</option>
+                    </select>
+                    <span class="error-message" id="pet-error"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Create Password*</label>
+                    <input type="password" id="password" name="password" required>
+                    <span class="error-message" id="password-error"></span>
+                    <div class="password-strength">
+                        <div class="strength-bar"></div>
+                        <span class="strength-text">Password strength</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Why do you want to adopt this pet?*</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                    <span class="error-message" id="message-error"></span>
+                    <div class="char-counter">
+                        <span id="char-count">0</span>/200 characters
+                    </div>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the adoption terms and conditions*</label>
+                    <span class="error-message" id="terms-error"></span>
+                </div>
+                
+                <button type="submit" id="submit-btn">Submit Application</button>
+            </form>
+            
+            <div id="form-success" class="hidden">
+                <h3>Thank You!</h3>
+                <p>Your adoption interest has been submitted. We'll contact you soon!</p>
+                <button id="reset-form">Submit Another Application</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Press the <kbd>?</kbd> key for help | Pet Pals Adoption Center &copy; 2025</p>
+        <button id="mode-toggle">Toggle Dark Mode</button>
+    </footer>
+
+    <!-- Key Commands Helper (hidden by default) -->
+    <div id="key-commands" class="hidden">
+        <div class="key-commands-content">
+            <h3>Keyboard Shortcuts</h3>
+            <ul>
+                <li><kbd>←</kbd> / <kbd>→</kbd>: Navigate pet gallery</li>
+                <li><kbd>1</kbd> - <kbd>3</kbd>: Switch information tabs</li>
+                <li><kbd>?</kbd>: Toggle this help menu</li>
+                <li><kbd>D</kbd>: Toggle dark mode</li>
+                <li><kbd>Esc</kbd>: Close popup/help</li>
+            </ul>
+            <button id="close-help">Close</button>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

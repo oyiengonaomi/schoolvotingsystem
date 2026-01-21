@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Voting
+/EbonySistersChamaManagementSystem
+/VoteSystem
+/Web Design Project
+/Week 5
+/Week 7
+/Votingsystem/obj
+/Votingsystem/bin/Debug/net9.0
+/.vscode
+/Votingsystem/Votingsystem.csproj.user
+/Votingsystem/.vs

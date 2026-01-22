@@ -4,6 +4,12 @@ namespace Votingsystem.ViewModels
 {
     public class RegisterViewModel
     {
+        [Required]
+        public string FirstName {  get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress]
         public string Email { get; set; }

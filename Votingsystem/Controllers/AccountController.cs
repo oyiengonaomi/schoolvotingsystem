@@ -47,6 +47,7 @@ namespace Votingsystem.Controllers
 
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, model.SelectedRole);
                     //If successful, sign them in and redirect to Home
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");

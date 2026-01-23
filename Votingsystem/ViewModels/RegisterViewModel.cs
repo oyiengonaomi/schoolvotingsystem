@@ -15,6 +15,10 @@ namespace Votingsystem.ViewModels
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "I am a...")]
+        public string SelectedRole { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 8)]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$", ErrorMessage = "Password must have uppercase, lowercase, and a digit.")]

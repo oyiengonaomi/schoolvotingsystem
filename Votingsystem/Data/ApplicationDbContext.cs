@@ -14,5 +14,8 @@ namespace Votingsystem.Data
 
         // This is where you'll eventually add your Voting tables
         // public DbSet<Candidate> Candidates { get; set; }
+        public DbSet<Poll> Polls { get; set; }
+        public DbSet<Candidate> Candidates { get; set; }
+        public DbSet<Vote> Votes { get; set; }
     }
 }

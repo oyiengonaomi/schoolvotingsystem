@@ -1,12 +1,52 @@
-﻿@{
-    ViewData["Title"] = "Voting Booth";
+﻿@model IEnumerable<Votingsystem.Models.Poll>
+
+@{
+    ViewData["Title"] = "Voter Dashboard";
 }
 
-<div class="container mt-4 text-center">
-    <h1 class="display-4">Welcome to the Ballot Box</h1>
-    <p class="text-muted">Select an active election below to cast your vote.</p>
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h1 class="display-4">Voting Booth</h1>
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success mt-3">@TempData["Success"]</div>
+        }
 
-    <div class="alert alert-info">
-        No active elections found. Check back later!
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger mt-3">@TempData["Error"]</div>
+        }
+        <p class="lead">Select an active election below to cast your vote.</p>
+    </div>
+
+    <div class="row">
+        @if (!Model.Any())
+        {
+            <div class="col-12 text-center">
+                <div class="alert alert-warning">
+                    There are currently no active elections. Please check back later!
+                </div>
+            </div>
+        }
+        else
+        {
+            @foreach (var poll in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@poll.Title</h5>
+                            <p class="card-text text-muted">@poll.Description</p>
+                            <p class="small"><strong>Ends:</strong> @poll.EndDate.ToShortDateString()</p>
+                        </div>
+                        <div class="card-footer bg-white border-top-0">
+                            <a asp-action="Details" asp-route-id="@poll.Id" class="btn btn-outline-primary w-100">
+                                View Candidates
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
     </div>
 </div>

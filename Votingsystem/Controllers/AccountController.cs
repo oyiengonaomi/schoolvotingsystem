@@ -65,8 +65,7 @@ namespace Votingsystem.Controllers
 
         [HttpGet]
         public IActionResult Login()
-        {
-            
+        {   
             return View(new LoginViewModel());
         }
 
@@ -84,10 +83,33 @@ namespace Votingsystem.Controllers
                     model.RememberMe,
                     lockoutOnFailure: false);
 
+                //Redirecting the specific user to their respective dashboards
                 if (result.Succeeded)
                 {
-                    // If the login is successful, send them to the Home page
-                    return RedirectToAction("Index", "Home");
+                    // 1. Find the user object by their email
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+
+                    if (user != null)
+                    {
+                        // 2. Get the list of roles assigned to this user
+                        var roles = await _userManager.GetRolesAsync(user);
+
+                        // 3. Redirect based on the role found
+                        if (roles.Contains("Admin"))
+                        {
+                            return RedirectToAction("Dashboard", "Admin");
+                        }
+                        if (roles.Contains("Election Commissioner"))
+                        {
+                            return RedirectToAction("Dashboard", "ElectionCommissioner");
+                        }
+                        if (roles.Contains("Voter"))
+                        {
+                            return RedirectToAction("Dashboard", "Voter");
+                        }
+                    }
+                        // Default fallback if no specific role is found
+                        return RedirectToAction("Index", "Home");
                 }
 
                 // If it fails, add a generic error message

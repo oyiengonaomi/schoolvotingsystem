@@ -42,13 +42,13 @@
                             <p class="card-text text-muted italic small">"@candidate.Manifesto"</p>
                         </div>
                         <div class="card-footer bg-transparent border-0 pb-3">
-                            <form asp-action="CastVote" method="post">
+                            <form asp-action="Preview" method="post">
                                 <input type="hidden" name="pollId" value="@Model.Id" />
                                 <input type="hidden" name="candidateId" value="@candidate.Id" />
                                 @* <button type="submit" class="btn btn-success w-100 btn-lg">
                                     Vote for @candidate.Name
                                 </button> *@
-                                @if (ViewBag.HasVoted)
+                                @if (ViewBag.HasVoted ?? false)
                                 {
                                     <button class="btn btn-secondary w-100" disabled>Already Voted</button>
                                 }

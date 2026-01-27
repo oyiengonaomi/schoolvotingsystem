@@ -44,8 +44,20 @@ namespace Votingsystem.Controllers
 
                 return NotFound();
             }
+            return View(poll);
+        }
 
-            
+        [HttpPost]
+        public async Task<IActionResult> Preview(int pollId, int candidateId)
+        {
+            var poll = await _context.Polls.FirstOrDefaultAsync(p => p.Id == pollId);
+            var candidate = await _context.Candidates.FirstOrDefaultAsync(c => c.Id == candidateId);
+
+            if (poll == null || candidate == null) return NotFound();
+
+            // Pass both to the view so the user can see what they picked
+            ViewBag.CandidateName = candidate.Name;
+            ViewBag.CandidateId = candidateId;
 
             return View(poll);
         }
@@ -89,7 +101,18 @@ namespace Votingsystem.Controllers
             await _context.SaveChangesAsync();
 
             TempData["Success"] = "Thank you! Your vote has been recorded.";
-            return RedirectToAction("Dashboard");
+            return RedirectToAction("Success", new {id = pollId});
+        }
+
+        public async Task<IActionResult> Success(int id)
+        {
+            var poll = await _context.Polls
+                .Include(p => p.Candidates)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (poll == null) return NotFound();
+
+            return View(poll);
         }
     }
 }

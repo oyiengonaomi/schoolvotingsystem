@@ -1,0 +1,67 @@
+﻿@model Votingsystem.Models.Poll
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Manage Candidates</h1>
+        <span class="badge bg-primary fs-5">Poll: @Model.Title</span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">Add New Candidate</div>
+                <div class="card-body">
+                    <form asp-action="AddCandidateToPoll" method="post">
+                        <input type="hidden" name="pollId" value="@Model.Id" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input name="name" class="form-control" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Manifesto / Bio</label>
+                            <textarea name="manifesto" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">Add to Election</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <h3>Current Candidates</h3>
+            <table class="table table-hover mt-3">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Manifesto</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var c in Model.Candidates)
+                    {
+                            <tr>
+                                <td><strong>@c.Name</strong></td>
+                                <td><small>@c.Manifesto</small></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-danger">Remove</button>
+                                </td>
+                            </tr>
+                    }
+                    @if (!Model.Candidates.Any())
+                    {
+                            <tr>
+                                <td colspan="3" class="text-center text-muted">No candidates added yet.</td>
+                            </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="mt-4">
+                <a asp-action="Dashboard" class="btn btn-primary">Finish & Go to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>

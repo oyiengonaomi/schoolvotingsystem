@@ -1,4 +1,5 @@
-﻿@{
+﻿@using System.Linq;
+@{
     ViewData["Title"] = "Election Management";
 }
 
@@ -7,6 +8,10 @@
         <h1>Election Commissioner Portal</h1>
         <p>Create and monitor active school elections.</p>
         <hr />
-        <a class="btn btn-primary btn-lg" href="#">Create New Poll</a>
+        <a class="btn btn-primary btn-lg"
+           asp-controller="ElectionCommissioner"
+           asp-action="Create">
+            Create New Poll
+        </a>
     </div>
 </div>

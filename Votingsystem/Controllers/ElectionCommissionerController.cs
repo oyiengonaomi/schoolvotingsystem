@@ -177,6 +177,26 @@ namespace Votingsystem.Controllers
             // Redirect back to the AddCandidates page for this specific poll
             return RedirectToAction("AddCandidates", new { id = pollId });
         }
+
+        // GET: ElectionCommissioner/Report/5
+        [HttpGet]
+        public async Task<IActionResult> Report(int id)
+        {
+            var poll = await _context.Polls
+                .Include(p => p.Candidates)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (poll == null) return NotFound();
+
+            // Logic: Identify the winner (highest vote count)
+            var winner = poll.Candidates.OrderByDescending(c => c.VoteCount).FirstOrDefault();
+            ViewBag.Winner = winner;
+
+            // Logic: Calculate total votes cast
+            ViewBag.TotalVotes = poll.Candidates.Sum(c => c.VoteCount);
+
+            return View(poll);
+        }
     }
 
 }

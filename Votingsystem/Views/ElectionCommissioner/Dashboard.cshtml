@@ -1,17 +1,57 @@
-﻿@using System.Linq;
+﻿@model IEnumerable<Votingsystem.Models.Poll>
+
 @{
     ViewData["Title"] = "Election Management";
 }
 
 <div class="container mt-4">
-    <div class="p-5 mb-4 bg-light rounded-3 border">
+    <div class="p-5 mb-4 bg-light rounded-3 border text-center">
         <h1>Election Commissioner Portal</h1>
         <p>Create and monitor active school elections.</p>
         <hr />
         <a class="btn btn-primary btn-lg"
            asp-controller="ElectionCommissioner"
            asp-action="Create">
-            Create New Poll
+            <i class="bi bi-plus-circle"></i> Create New Poll
         </a>
     </div>
+
+    <h3 class="mb-4">Recent Polls</h3>
+    <div class="row">
+        @foreach (var poll in Model)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@poll.Title</h5>
+                        <p class="text-muted small">@poll.Description</p>
+                        <hr />
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            @* Logic: Show Report if finished, otherwise show status *@
+                            @if (DateTime.Now > poll.EndDate)
+                            {
+                                <a asp-action="Report" asp-route-id="@poll.Id" class="btn btn-dark btn-sm">
+                                    <i class="bi bi-file-earmark-bar-graph"></i> Generate Report
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="badge bg-info text-dark">
+                                    <i class="bi bi-clock"></i> Live / Upcoming
+                                </span>
+                            }
+
+                            @* Standard Actions *@
+                            <div class="btn-group">
+                                <a asp-action="Edit" asp-route-id="@poll.Id" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                <a asp-action="AddCandidates" asp-route-id="@poll.Id" class="btn btn-outline-primary btn-sm">Manage</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+

@@ -197,6 +197,22 @@ namespace Votingsystem.Controllers
 
             return View(poll);
         }
+
+        public async Task<IActionResult> ExportCSV(int id)
+        {
+            var poll = await _context.Polls.Include(p => p.Candidates).FirstOrDefaultAsync(p => p.Id == id);
+            if (poll == null) return NotFound();
+
+            var builder = new System.Text.StringBuilder();
+            builder.AppendLine("Candidate,Votes,Manifesto");
+
+            foreach (var c in poll.Candidates)
+            {
+                builder.AppendLine($"{c.Name},{c.VoteCount},{c.Manifesto}");
+            }
+
+            return File(System.Text.Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", $"{poll.Title}_Results.csv");
+        }
     }
 
 }
